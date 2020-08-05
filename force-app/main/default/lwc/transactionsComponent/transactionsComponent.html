@@ -1,0 +1,91 @@
+ <template>
+
+    <lightning-card title="Current Logged User Information">
+    <lightning-record-view-form record-id={userId} object-api-name="User">
+        <div class="slds-box">
+            <lightning-output-field field-name="Name"></lightning-output-field>
+            <lightning-output-field field-name="Email"></lightning-output-field>
+            <lightning-output-field field-name="MobilePhone"></lightning-output-field>
+            <lightning-output-field field-name="Address"></lightning-output-field>
+            <lightning-output-field field-name="Balance__c"></lightning-output-field>
+        </div>
+    </lightning-record-view-form>
+   </lightning-card>
+
+
+    <lightning-card title="TransactionsCard" icon-name="custom:custom14">
+        <ul class="slds-m-around_medium" if:true={userTransactions}>
+            <template  for:each={userTransactions} for:item="trans" >
+                <li key={trans.Id}>
+                <div>
+                    <lightning-record-edit-form object-api-name="Transaction__c" record-id={trans.Id}>
+                        <lightning-input-field field-name='Purpose__c'></lightning-input-field>
+                        <lightning-input-field field-name='Amount__c'></lightning-input-field>
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" > </lightning-button>
+                        <lightning-button class="slds-m-top_small"  variant="brand" type="submit" name="delete" label="Delete" onclick={deleteTransaction} data-recordid={trans.Id} ></lightning-button>
+                    </lightning-record-edit-form>
+                    <br>
+                </div>
+                </li>
+            </template>
+        </ul>
+        <template if:true={error}>
+            {error}
+        </template>
+    </lightning-card>
+  
+ </template>
+<!--     
+    <lightning-record-edit-form object-api-name="Account" onsuccess={handleSuccess}>
+        <lightning-messages></lightning-messages>
+        <div class="slds-m-around_medium">
+            <p>{userData.data.Name}
+            </p>
+            <lightning-input-field field-name='Id' value={accountId}></lightning-input-field>
+            <lightning-input-field field-name='Name'></lightning-input-field>
+            <div class="slds-m-top_medium">
+                <lightning-button variant="brand" type="submit" name="save" label="Create Account">
+                </lightning-button>
+           </div>
+       </div>
+    </lightning-record-edit-form>
+</template> 
+
+<template>
+     <lightning-card title="Current Logged User Information">
+        <template if:true={objUser}>
+            <dl class="slds-list_horizontal slds-wrap" style="margin-left: 3%;">
+                <dt class="slds-item_label slds-truncate" title="Full Name">Name:</dt>
+                <dd class="slds-item_detail slds-truncate"><b>{objUser.Name}</b></dd>
+ 
+                <dt class="slds-item_label slds-truncate" title="Email">Email:</dt>
+                <dd class="slds-item_detail slds-truncate"><b>{objUser.Email}</b></dd> 
+
+                <dt class="slds-item_label slds-truncate" title="Phone">Mobile phone:</dt>
+                <dd class="slds-item_detail slds-truncate"><b>{objUser.Phone}</b></dd>
+
+                <dt class="slds-item_label slds-truncate" title="Address">Address:</dt>
+                <dd class="slds-item_detail slds-truncate"><b>{objUser.Address}</b></dd>
+
+
+            </dl>
+        </template>
+    </lightning-card> 
+     -->
+
+    <!-- <lightning-card title="User's transactions">
+        <lightning-record-edit-form object-api-name="Transaction__c" onsuccess={handleSuccess}>
+            <lightning-messages></lightning-messages>
+            <div class="slds-m-around_medium">
+                <p>{userData.data.Name}
+                </p>
+                <lightning-input-field field-name='Id' value={accountId}></lightning-input-field>
+                <lightning-input-field field-name='Name'></lightning-input-field>
+                <div class="slds-m-top_medium">
+                    <lightning-button variant="brand" type="submit" name="save" label="Create Account">
+                    </lightning-button>
+               </div>
+           </div>
+        </lightning-record-edit-form>
+    </lightning-card> -->
+<!-- </template> -->
