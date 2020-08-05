@@ -1,14 +1,19 @@
-trigger TransactionUpdate on Transaction__c (after insert, after update) {
+trigger TransactionUpdate on Transaction__c (after insert, after update, after delete) {
 
-    List<Id> userIds = getUsersIdList(Trigger.New);
+    List<Transaction__c> trans = Trigger.isDelete? Trigger.Old: Trigger.New;
+    List<Id> userIds = getUsersIdList(trans);
+    
     Map<Id, User> users = new Map<Id, User>([SELECT Id, Balance__c FROM User WHERE Id IN: userIds]);
     
         Decimal difference;
-        for(Transaction__c t: Trigger.New) {
+       
+        for(Transaction__c t: trans) {
             difference = t.Amount__c;
             
             if(Trigger.isUpdate) {
                 difference -= Trigger.oldMap.get(t.Id).Amount__c; // new amount - old amount
+            } else if(Trigger.isDelete) {
+                difference = -difference;
             }
             
             User u = users.get(t.AccOwnerId__c);
