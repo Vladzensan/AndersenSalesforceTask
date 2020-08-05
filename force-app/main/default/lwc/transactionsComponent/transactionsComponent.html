@@ -21,6 +21,7 @@
                     <lightning-record-edit-form object-api-name="Transaction__c" record-id={trans.Id}>
                         <lightning-input-field field-name='Purpose__c'></lightning-input-field>
                         <lightning-input-field field-name='Amount__c'></lightning-input-field>
+                        <lightning-output-field field-name="Creation_Time__c"></lightning-output-field>
                         <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" > </lightning-button>
                         <lightning-button class="slds-m-top_small"  variant="brand" type="submit" name="delete" label="Delete" onclick={deleteTransaction} data-recordid={trans.Id} ></lightning-button>
                     </lightning-record-edit-form>
