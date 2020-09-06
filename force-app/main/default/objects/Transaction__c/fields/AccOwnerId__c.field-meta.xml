@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AccOwnerId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Owner of an account against which transaction is executed</description>
+    <externalId>false</externalId>
+    <label>Account Owner</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Transactions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
