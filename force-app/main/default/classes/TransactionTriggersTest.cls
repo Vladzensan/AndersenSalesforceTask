@@ -16,11 +16,9 @@ private class TransactionTriggersTest {
     
     @isTest
     static void testTransactionInsert() {
-        User usr = TestDataProvider.getUser();
-        
         Test.startTest();
-        insert usr;
-        
+        User usr = TestDataProvider.generateUser('Standard User');
+
         List<Transaction__c> trans = TestDataProvider.getUserTransactions(usr.Id, 10);
         insert trans;
         
@@ -35,11 +33,9 @@ private class TransactionTriggersTest {
     
     @isTest
     static void testTransactionUpdate() {
-        User usr = TestDataProvider.getUser();
-        
         Test.startTest();
-        insert usr;
-        
+        User usr = TestDataProvider.generateUser('Standard User');
+
         List<Transaction__c> trans = TestDataProvider.getUserTransactions(usr.Id, 10);
         insert trans;
         
@@ -57,10 +53,9 @@ private class TransactionTriggersTest {
     
     @isTest
     static void testTransactionDelete() {
-        User usr = TestDataProvider.getUser();
+        User usr = TestDataProvider.generateUser('Standard User');
         
         Test.startTest();
-        insert usr;
         
         List<Transaction__c> trans = TestDataProvider.getUserTransactions(usr.Id, 10);
         insert trans;

@@ -1,21 +1,24 @@
 public with sharing class TestDataProvider {
     public static final Integer DEFAULT_AMOUNT = 100;
-    public static User getUser() {
-         Profile profileId = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
+    public static User generateUser(String profileName) {
+         Profile profileId = [SELECT Id FROM Profile WHERE Name =: profileName LIMIT 1];
 
 		 User usr = new User(LastName = 'LIVESTON',
                    FirstName='JASON',
                    Alias = 'jliv',
                    Email = 'jason.liveston@asdf.com',
-                   Username = 'vladzensan@asdf.com',
+                   Username = 'testuser1984@test.com',
                    ProfileId = profileId.id,
                    TimeZoneSidKey = 'GMT',
                    LanguageLocaleKey = 'en_US',
+                   CommunityNickname = 'wlef,lwfe,lw',
                    EmailEncodingKey = 'UTF-8',
                    LocaleSidKey = 'en_US',
                    Balance__c = 0
                    );
         
+        insert usr;
+
         return usr;
         
     }
@@ -29,5 +32,12 @@ public with sharing class TestDataProvider {
         }
         
         return transactions;
+    }
+
+    public static void assignPermissionSet(Id userId, String permSetLabel) {
+        PermissionSet permSet = [SELECT Id FROM PermissionSet WHERE Label=:permSetLabel][0];
+
+        PermissionSetAssignment psa = new PermissionSetAssignment(PermissionSetId = permSet.Id, AssigneeId = userId);
+        insert psa;  
     }
 }

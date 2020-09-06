@@ -1,4 +1,4 @@
- <template>
+<template>
 
     <lightning-card title="Current Logged User Information">
     <lightning-record-view-form record-id={userId} object-api-name="User">
@@ -31,7 +31,7 @@
             </template>
         </ul>
         <template if:true={error}>
-            {error}
+            Error: {error.message}
         </template>
     </lightning-card>
   
