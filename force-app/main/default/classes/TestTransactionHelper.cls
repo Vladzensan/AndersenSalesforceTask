@@ -11,7 +11,7 @@ private class TestTransactionHelper {
     }
 
     @isTest
-    static void testHasAccess() {
+    static void testHasObjectAccess() {
         
         User usr = [SELECT Id FROM User WHERE Username = 'testuser1984@test.com'];
       
@@ -27,7 +27,7 @@ private class TestTransactionHelper {
     }
 
     @isTest
-    static void testNoAccess() {
+    static void testNoObjectAccess() {
             User usr = [SELECT Id FROM User WHERE Username = 'testuser1984@test.com'];
             System.runAs(usr) {
                 boolean isException = false;
@@ -46,4 +46,28 @@ private class TestTransactionHelper {
       
 
     }
+
+    @isTest
+    static void testNoFieldAccess() {
+        User usr = [SELECT Id FROM User WHERE Username = 'testuser1984@test.com'];
+      
+        TestDataProvider.assignPermissionSet(usr.Id, 'Transactions partial'); // no access to Amount field
+
+        System.runAs(usr) {
+
+            Test.startTest();
+            List<Transaction__c> trans = TransactionHelper.getUserTransactions(usr.Id);
+            Test.stopTest();
+
+            for(Transaction__c t: trans) {
+            System.assert(!t.isSet(Transaction__c.Amount__c));
+            }
+            
+        }
+
+
+    }
+
+
+
 }
