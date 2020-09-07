@@ -12,5 +12,9 @@
         <members>Security</members>
         <name>Settings</name>
     </types>
+    <types>
+        <members>*</members>
+        <name>PermissionSet</name>
+    </types>
     <version>49.0</version>
 </Package>
